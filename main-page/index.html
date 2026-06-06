@@ -6,7 +6,7 @@
     <title>Minecraft Creator Hub | Main Page</title>
 
     <style>
-        /* LOAD CUSTOM FONT */
+        /* LOAD HEADER FONT */
         @font-face {
             font-family: "PixelDigivolve";
             src: url("../assets/fonts/Pixel Digivolve.otf") format("opentype");
@@ -14,9 +14,21 @@
             font-style: normal;
         }
 
+        /* LOAD MINECRAFTIA FOR BODY TEXT */
+        @font-face {
+            font-family: "Minecraftia";
+            src: url("../assets/fonts/Minecraftia-Regular.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* DEFAULT BODY FONT = MINECRAFTIA */
+        body, p, a, li, div, span {
+            font-family: "Minecraftia", sans-serif;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
             background: #f0f0f0;
             text-align: center;
         }
@@ -30,7 +42,7 @@
             margin-top: 40px;
         }
 
-        /* APPLY PIXEL FONT */
+        /* HEADER USES PIXEL DIGIVOLVE */
         .banner h1 {
             font-family: "PixelDigivolve", monospace;
             font-size: 48px;
