@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Creator Hub | Main Page</title>
+    <title>Minecraft Creator Hub</title>
 
     <style>
+        /* LOAD CUSTOM FONT */
+        @font-face {
+            font-family: "PixelDigivolve";
+            src: url("../assets/fonts/Pixel Digivolve.otf") format("opentype");
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -22,13 +30,13 @@
             margin-top: 40px;
         }
 
-        /* PIXEL FONT LOOK */
+        /* APPLY PIXEL FONT */
         .banner h1 {
+            font-family: "PixelDigivolve", monospace;
             font-size: 48px;
-            font-weight: bold;
+            font-weight: normal;
             letter-spacing: 2px;
             text-shadow: 2px 2px #000;
-            font-family: "Courier New", monospace;
         }
 
         /* OVAL BADGES */
@@ -102,10 +110,12 @@
     </div>
 
     <script>
+        // Auto-update year
         const year = new Date().getFullYear();
         document.getElementById("year-top").textContent = year;
         document.getElementById("year-bottom").textContent = year;
-  
+
+        // Toggle disclaimer
         function toggleDisclaimer() {
             const box = document.getElementById("disclaimer");
             box.style.display = box.style.display === "block" ? "none" : "block";
@@ -114,4 +124,3 @@
 
 </body>
 </html>
-
