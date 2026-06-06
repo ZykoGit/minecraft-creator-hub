@@ -1,1 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Creator Hub | Main Page</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            text-align: center;
+        }
+
+        /* BLUE BANNER */
+        .banner {
+            background: #3b82f6;
+            color: white;
+            padding: 60px 20px;
+            position: relative;
+            margin-top: 40px;
+        }
+
+        /* PIXEL FONT LOOK */
+        .banner h1 {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px #000;
+            font-family: "Courier New", monospace;
+        }
+
+        /* OVAL BADGES */
+        .badge {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: #3b82f6;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: 2px solid #1e40af;
+        }
+
+        .badge.top {
+            top: -20px;
+        }
+
+        .badge.bottom {
+            bottom: -20px;
+        }
+
+        /* DISCLAIMER BOX */
+        .disclaimer-box {
+            background: #ef4444;
+            color: white;
+            padding: 15px;
+            margin: 60px auto;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .disclaimer-content {
+            display: none;
+            background: #fee2e2;
+            color: #7f1d1d;
+            padding: 15px;
+            margin: 10px auto;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            border: 2px solid #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- BLUE BANNER -->
+    <div class="banner">
+        <div class="badge top">MCCH <span id="year-top"></span></div>
+
+        <h1>Minecraft Creator Hub</h1>
+
+        <div class="badge bottom">MCCH <span id="year-bottom"></span></div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer-box" onclick="toggleDisclaimer()">
+        Disclaimer (click to open)
+    </div>
+
+    <div class="disclaimer-content" id="disclaimer">
+        This website is not affiliated with Mojang or Microsoft.  
+        All Minecraft assets belong to their respective owners.  
+        This is a fan‑made project for community use.
+    </div>
+
+    <script>
+        const year = new Date().getFullYear();
+        document.getElementById("year-top").textContent = year;
+        document.getElementById("year-bottom").textContent = year;
+  
+        function toggleDisclaimer() {
+            const box = document.getElementById("disclaimer");
+            box.style.display = box.style.display === "block" ? "none" : "block";
+        }
+    </script>
+
+</body>
+</html>
 
