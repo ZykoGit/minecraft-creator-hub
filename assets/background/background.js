@@ -3,7 +3,7 @@
 // ===============================
 
 // Change this to "spring", "summer", "fall", "winter", or "auto"
-let seasonMode = "winter";
+let seasonMode = "auto";
 
 // Texture URLs
 const textures = {
