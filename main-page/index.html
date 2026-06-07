@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Creator Hub</title>
+    <title>Minecraft Creator Hub | Main Page</title>
 
     <!-- FAVICON + APPLE TOUCH ICON -->
     <link rel="icon" type="image/png" href="../assets/IMG_4012.png">
@@ -27,17 +27,17 @@
             font-family: "Minecraftia", sans-serif;
         }
 
+        /* TEXT‑ONLY SHIFT FIX */
+        .minecraftia-text-fix {
+            display: inline-block;
+            transform: translateY(2px);
+        }
+
         body {
             margin: 0;
             background: #f0f0f0;
             text-align: center;
         }
-        
-        .minecraftia-fix {
-            position: relative;
-            top: 10px; 
-        }
-
 
         /* BLUE BANNER */
         .banner {
@@ -111,7 +111,6 @@
             max-width: 600px;
             border-radius: 8px;
             border: 2px solid #ef4444;
-            top: 4px;
         }
     </style>
 </head>
@@ -120,22 +119,28 @@
 
     <!-- BLUE BANNER -->
     <div class="banner">
-        <div class="badge top minecraftia-fix">MCCH <span id="year-top"></span></div>
+        <div class="badge top">
+            <span class="minecraftia-text-fix">MCCH <span id="year-top"></span></span>
+        </div>
 
         <h1>Minecraft Creator Hub</h1>
 
-        <div class="badge bottom minecraftia-fix">MCCH <span id="year-bottom"></span></div>
+        <div class="badge bottom">
+            <span class="minecraftia-text-fix">MCCH <span id="year-bottom"></span></span>
+        </div>
     </div>
 
     <!-- DISCLAIMER -->
     <div class="disclaimer-box" onclick="toggleDisclaimer()">
-        Disclaimer (click to open)
+        <span class="minecraftia-text-fix">Disclaimer (click to open)</span>
     </div>
 
     <div class="disclaimer-content" id="disclaimer">
-        This website is not affiliated with Mojang or Microsoft.  
-        All Minecraft assets belong to their respective owners.  
-        This is a fan‑made project for community use.
+        <span class="minecraftia-text-fix">
+            This website is not affiliated with Mojang or Microsoft.<br>
+            All Minecraft assets belong to their respective owners.<br>
+            This is a fan‑made project for community use.
+        </span>
     </div>
 
     <script>
