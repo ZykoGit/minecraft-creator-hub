@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Creator Hub</title>
+    <title>Minecraft Creator Hub | Main Page</title>
 
     <!-- FAVICON + APPLE TOUCH ICON -->
     <link rel="icon" type="image/png" href="../assets/IMG_4012.png">
@@ -22,12 +22,10 @@
             src: url("../assets/fonts/Minecraftia-Regular.ttf") format("truetype");
         }
 
-        /* DEFAULT TEXT FONT */
         body, p, a, li, div, span {
             font-family: "Minecraftia", sans-serif;
         }
 
-        /* TEXT‑ONLY SHIFT FIX (your 6px version) */
         .minecraftia-text-fix {
             display: inline-block;
             transform: translateY(6px);
@@ -39,19 +37,113 @@
             text-align: center;
         }
 
-        /* BLUE BANNER — DARKER + BORDERS */
+        /* ================================
+           MENU COMPONENENT
+           ================================ */
+
+        /* HAMBURGER BUTTON */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 35px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 2000;
+        }
+
+        .menu-toggle div {
+            width: 100%;
+            height: 5px;
+            background: #000;
+            margin: 6px 0;
+            transition: 0.25s ease;
+        }
+
+        /* HAMBURGER → X ANIMATION */
+        .menu-open .bar1 {
+            transform: translateY(11px) rotate(45deg);
+        }
+
+        .menu-open .bar2 {
+            opacity: 0;
+        }
+
+        .menu-open .bar3 {
+            transform: translateY(-11px) rotate(-45deg);
+        }
+
+        /* MENU PANEL */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: #1f1f1f;
+            border-right: 4px solid #000;
+            transform: translateX(-100%);
+            opacity: 0.5;
+            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2),
+                        opacity 0.25s ease-out;
+            z-index: 1500;
+            overflow-y: auto;
+            padding-top: 80px;
+        }
+
+        /* WIDTH: 250 MOBILE, 300 DESKTOP */
+        @media (max-width: 700px) {
+            .side-menu { width: 250px; }
+        }
+        @media (min-width: 701px) {
+            .side-menu { width: 300px; }
+        }
+
+        /* MENU OPEN STATE */
+        .side-menu.open {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* MENU BUTTONS */
+        .menu-item, .submenu-item {
+            background: #3a3a3a;
+            color: white;
+            padding: 12px 15px;
+            margin: 10px;
+            border: 4px solid #000;
+            box-shadow: 0 6px 0 #222;
+            cursor: pointer;
+            text-align: left;
+            transition: transform 0.1s ease-out, box-shadow 0.1s ease-out, background 0.1s ease-out;
+        }
+
+        .menu-item:active, .submenu-item:active {
+            transform: translateY(3px) scale(0.97);
+            box-shadow: 0 3px 0 #222;
+            background: #2a2a2a;
+        }
+
+        /* SUBMENU CONTAINER */
+        .submenu {
+            display: none;
+            margin-left: 20px;
+        }
+
+        /* ================================
+           END OF MENU COMPONENT
+           ================================ */
+
+        /* BLUE BANNER */
         .banner {
-            background: #1f4fd1; /* darker blue */
+            background: #1f4fd1;
             color: white;
             padding: 60px 20px;
             position: relative;
             margin-top: 40px;
-
-            border-top: 3px solid #0f2a7a;
-            border-bottom: 3px solid #0f2a7a;
+            border-top: 6px solid #0f2a7a;
+            border-bottom: 6px solid #0f2a7a;
         }
 
-        /* HEADER TEXT */
         .banner h1 {
             font-family: "PixelDigivolve", monospace;
             font-size: 48px;
@@ -60,7 +152,6 @@
             text-shadow: 2px 2px #000;
         }
 
-        /* BADGES */
         .badge {
             position: absolute;
             left: 50%;
@@ -71,24 +162,18 @@
             border-radius: 20px;
             font-weight: bold;
             border: 2px solid #1e40af;
-
             display: flex;
             align-items: center;
             justify-content: center;
             line-height: 1.2;
         }
 
-        .badge.top {
-            top: -20px;
-        }
+        .badge.top { top: -20px; }
+        .badge.bottom { bottom: -20px; }
 
-        .badge.bottom {
-            bottom: -20px;
-        }
-
-        /* MINECRAFT‑STYLE DISCLAIMER BUTTON */
+        /* DISCLAIMER BUTTON */
         .disclaimer-box {
-            background: #ef4444;                 /* base red */
+            background: #ef4444;
             color: white;
             padding: 15px;
             margin: 60px auto;
@@ -96,28 +181,20 @@
             max-width: 600px;
             cursor: pointer;
             font-weight: bold;
-            user-select: none;
-
             display: flex;
             align-items: center;
             justify-content: center;
             line-height: 1.3;
-
-            border: 4px solid #7f1d1d;          /* dark red border */
-            box-shadow: 0 6px 0 #5c0f0f;        /* pixel bottom edge */
-            border-radius: 0;                   /* Minecraft-style square edges */
-
-            transition:
-                background 0.1s ease-out,
-                transform 0.1s ease-out,
-                box-shadow 0.1s ease-out;
+            border: 4px solid #7f1d1d;
+            box-shadow: 0 6px 0 #5c0f0f;
+            border-radius: 0;
+            transition: background 0.1s ease-out, transform 0.1s ease-out, box-shadow 0.1s ease-out;
         }
 
-        /* CLICK (PRESS) EFFECT — NO HOVER */
         .disclaimer-box:active {
-            background: #b82f2f;                /* darker red when pressed */
+            background: #b82f2f;
             transform: translateY(3px) scale(0.97);
-            box-shadow: 0 3px 0 #5c0f0f;        /* shorter shadow */
+            box-shadow: 0 3px 0 #5c0f0f;
         }
 
         .disclaimer-content {
@@ -130,54 +207,121 @@
             max-width: 600px;
             border-radius: 8px;
             border: 2px solid #ef4444;
-            user-select: none;
         }
     </style>
 </head>
 
 <body>
 
-    <!-- BLUE BANNER -->
-    <div class="banner">
-        <div class="badge top">
-            <span class="minecraftia-text-fix">MCCH <span id="year-top"></span></span>
-        </div>
+<!-- ================================
+     MENU COMPONENT
+     ================================ -->
 
-        <h1>Minecraft Creator Hub</h1>
+<div class="menu-toggle" id="menuToggle">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+</div>
 
-        <div class="badge bottom">
-            <span class="minecraftia-text-fix">MCCH <span id="year-bottom"></span></span>
-        </div>
-    </div>
+<div class="side-menu" id="sideMenu"></div>
 
-    <!-- DISCLAIMER -->
-    <div class="disclaimer-box" onclick="toggleDisclaimer()">
-        <span style="user-select: none;" class="minecraftia-text-fix">Disclaimer (click to open)</span>
-    </div>
+<!-- MOBILE ACTIVE FIX -->
+<script>
+document.addEventListener("touchstart", function(){}, true);
+</script>
 
-    <div class="disclaimer-content" id="disclaimer">
-        <span class="minecraftia-text-fix">
-            This website is not affiliated with Mojang or Microsoft.<br>
-            All Minecraft assets belong to their respective owners.<br>
-            This is a fan‑made project for community use.
-        </span>
-    </div>
+<script>
+/* LOAD MENU FROM JSON */
+fetch("../assets/documents/sitemap.json")
+    .then(res => res.json())
+    .then(data => buildMenu(data.menu));
 
-    <script>
-        // Mobile click checker
-        document.addEventListener("touchstart", function(){}, true);
-        
-        // Auto-update year
-        const year = new Date().getFullYear();
-        document.getElementById("year-top").textContent = year;
-        document.getElementById("year-bottom").textContent = year;
+function buildMenu(menu) {
+    const sideMenu = document.getElementById("sideMenu");
 
-        // Toggle disclaimer
-        function toggleDisclaimer() {
-            const box = document.getElementById("disclaimer");
-            box.style.display = box.style.display === "block" ? "none" : "block";
+    menu.forEach(item => {
+        const btn = document.createElement("div");
+        btn.className = "menu-item";
+        btn.textContent = item.label;
+
+        if (item.link) {
+            btn.onclick = () => location.href = item.link;
         }
-    </script>
+
+        if (item.children) {
+            const submenu = document.createElement("div");
+            submenu.className = "submenu";
+
+            item.children.forEach(child => {
+                const subBtn = document.createElement("div");
+                subBtn.className = "submenu-item";
+                subBtn.textContent = child.label;
+                subBtn.onclick = () => location.href = child.link;
+                submenu.appendChild(subBtn);
+            });
+
+            btn.onclick = () => {
+                submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+            };
+
+            sideMenu.appendChild(btn);
+            sideMenu.appendChild(submenu);
+        } else {
+            sideMenu.appendChild(btn);
+        }
+    });
+}
+
+/* MENU OPEN/CLOSE */
+const toggle = document.getElementById("menuToggle");
+const menu = document.getElementById("sideMenu");
+
+toggle.onclick = () => {
+    toggle.classList.toggle("menu-open");
+    menu.classList.toggle("open");
+};
+</script>
+
+<!-- ================================
+     END OF MENU COMPONENT
+     ================================ -->
+
+<!-- BLUE BANNER -->
+<div class="banner">
+    <div class="badge top">
+        <span class="minecraftia-text-fix">MCCH <span id="year-top"></span></span>
+    </div>
+
+    <h1>Minecraft Creator Hub</h1>
+
+    <div class="badge bottom">
+        <span class="minecraftia-text-fix">MCCH <span id="year-bottom"></span></span>
+    </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer-box" onclick="toggleDisclaimer()">
+    <span class="minecraftia-text-fix">Disclaimer (click to open)</span>
+</div>
+
+<div class="disclaimer-content" id="disclaimer">
+    <span class="minecraftia-text-fix">
+        This website is not affiliated with Mojang or Microsoft.<br>
+        All Minecraft assets belong to their respective owners.<br>
+        This is a fan‑made project for community use.
+    </span>
+</div>
+
+<script>
+const year = new Date().getFullYear();
+document.getElementById("year-top").textContent = year;
+document.getElementById("year-bottom").textContent = year;
+
+function toggleDisclaimer() {
+    const box = document.getElementById("disclaimer");
+    box.style.display = box.style.display === "block" ? "none" : "block";
+}
+</script>
 
 </body>
 </html>
