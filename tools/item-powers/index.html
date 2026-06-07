@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Creator Hub | Item Powers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../assets/menu/style.css">
+    <link rel="icon" type="image/png" href="../assets/IMG_4012.png">
+    <link rel="apple-touch-icon" href="../assets/IMG_4012.png">
+</head>
+
+<body>
+
+<div class="menu-toggle" id="menuToggle">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+</div>
+
+<div class="side-menu" id="sideMenu"></div>
+
+<!-- PAGE HEADER -->
+<div class="banner">
+    <div class="badge top">
+        <span class="minecraftia-text-fix">MCCH <span id="year-top"></span></span>
+    </div>
+
+    <h1>Item Powers</h1>
+
+    <div class="badge bottom">
+        <span class="minecraftia-text-fix">MCCH <span id="year-bottom"></span></span>
+    </div>
+</div>
+
+<!-- DESCRIPTION -->
+<p class="description minecraftia-text-fix">
+    Give your items powers in vanilla minecraft bedrock/pe with nothing but command blocks!!
+</p>
+
+<!-- FORM AREA -->
+<div class="form-box">
+    <label for="item" class="minecraftia-text-fix">Select Item</label>
+    <select id="item">
+        <option value="">-- choose an item --</option>
+    </select>
+
+    <label for="power" class="minecraftia-text-fix">Select Power</label>
+    <select id="power">
+        <option value="">-- choose a power --</option>
+    </select>
+
+    <button id="generate" class="minecraftia-text-fix">Generate Steps</button>
+</div>
+
+<div id="result-box" class="result-box">
+    <h2 class="minecraftia-text-fix">Your Setup Instructions</h2>
+    <p id="result-text" class="minecraftia-text-fix"></p>
+</div>
+
+<script src="script.js"></script> 
+<script src="../assets/menu/menu.js"></script>
+<script src="../assets/background/background.js"></script>
+
+</body>
+</html>
