@@ -7,7 +7,14 @@
         {
             "label": "Tools",
             "children": [
-                { "label": "Command Tools", "link": "/creators/top" },
+                { 
+                  "label": "Command Tools",
+                  "children": [
+                      {
+                          "label": "Item Powers",
+                          "link": "https://zykogit.github.io/minecraft-creator-hub/tools/command/item-powers/"
+                      }
+                  ]
                 { "label": "Pack Tools", "link": "/creators/new" },
                 { "label": "Tutorials", "link": "/creators/submit" }
             ]
