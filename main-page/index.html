@@ -164,6 +164,9 @@
     </div>
 
     <script>
+        // Mobile click checker
+        document.addEventListener("touchstart", function(){}, true);
+        
         // Auto-update year
         const year = new Date().getFullYear();
         document.getElementById("year-top").textContent = year;
