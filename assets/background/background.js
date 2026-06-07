@@ -13,7 +13,7 @@ Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) 
     base.height = 16;
     const bctx = base.getContext("2d", { willReadFrequently: true });
 
-    // Force pixel art mode
+    // EXACTLY how your other project disables smoothing
     bctx.imageSmoothingEnabled = false;
     bctx.webkitImageSmoothingEnabled = false;
     bctx.mozImageSmoothingEnabled = false;
@@ -21,7 +21,7 @@ Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) 
     // Draw dirt
     bctx.drawImage(dirt, 0, 0, 16, 16);
 
-    // Prepare overlay
+    // Overlay canvas
     const oCanvas = document.createElement("canvas");
     oCanvas.width = 16;
     oCanvas.height = 16;
@@ -38,7 +38,7 @@ Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) 
     // Minecraft biome tint (spring)
     const tint = { r: 95, g: 159, b: 53 };
 
-    // Apply tint ONLY to overlay pixels
+    // Apply tint ONLY to overlay pixels (Minecraft-style)
     for (let i = 0; i < oData.data.length; i += 4) {
         const alpha = oData.data[i + 3];
         if (alpha > 0) {
@@ -54,7 +54,7 @@ Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) 
     // Draw tinted overlay onto dirt
     bctx.drawImage(oCanvas, 0, 0);
 
-    // Now scale to EXACT 80×80 inside canvas (no CSS scaling)
+    // Now scale to EXACT 80×80 inside canvas (your method)
     const final = document.createElement("canvas");
     final.width = 80;
     final.height = 80;
@@ -73,7 +73,7 @@ Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) 
     document.body.style.backgroundImage = `url(${url})`;
     document.body.style.backgroundRepeat = "repeat";
 
-    // HARD FORCE crisp rendering
+    // HARD FORCE crisp rendering (backup)
     document.body.style.imageRendering = "pixelated";
     document.body.style.backgroundSize = "80px 80px";
 });
