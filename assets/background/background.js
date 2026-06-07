@@ -7,6 +7,8 @@ const overlayURL = "https://zykogit.github.io/minecraft-creator-hub/assets/grass
 
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+// Force pixel‑art rendering
 ctx.imageSmoothingEnabled = false;
 
 Promise.all([
@@ -49,8 +51,8 @@ Promise.all([
     overlayCtx.putImageData(overlayData, 0, 0);
     ctx.drawImage(overlayCanvas, 0, 0);
 
-    // Scale up to EXACTLY 160px
-    const tileSize = 160;
+    // Scale to EXACT 80px tiles
+    const tileSize = 80;
     const bigCanvas = document.createElement("canvas");
     const bigCtx = bigCanvas.getContext("2d");
     bigCtx.imageSmoothingEnabled = false;
@@ -65,7 +67,10 @@ Promise.all([
     // Apply as page background
     document.body.style.backgroundImage = `url(${finalTexture})`;
     document.body.style.backgroundRepeat = "repeat";
-    document.body.style.imageRendering = "pixelated"; // extra crispness
+
+    // EXTRA anti‑blur protection
+    document.body.style.imageRendering = "pixelated";
+    document.body.style.backgroundSize = "80px 80px";
 });
 
 // Image loader helper
