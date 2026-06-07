@@ -36,8 +36,7 @@ Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) 
     const oData = octx.getImageData(0, 0, 16, 16);
 
     // tint
-    const tint = { r: 120, g: 200, b: 90 };
-
+    const tint = { r: 140, g: 220, b: 100 };
 
     // Apply tint ONLY to overlay pixels (Minecraft-style)
     for (let i = 0; i < oData.data.length; i += 4) {
