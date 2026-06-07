@@ -1,23 +1,43 @@
 {
-    "menu": [
+  "menu": [
+    {
+      "label": "Main Page",
+      "link": "https://zykogit.github.io/minecraft-creator-hub/main-page/"
+    },
+    {
+      "label": "Tools",
+      "children": [
         {
-            "label": "Main Page",
-            "link": "https://zykogit.github.io/minecraft-creator-hub/main-page/"
+          "label": "Command Tools",
+          "children": [
+            {
+              "label": "Item Powers",
+              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/command/item-powers/"
+            },
+            {
+              "label": "Armor Powers",
+              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/command/armor-powers/"
+            }
+          ]
         },
         {
-            "label": "Tools",
-            "children": [
-                { 
-                  "label": "Command Tools",
-                  "children": [
-                      {
-                          "label": "Item Powers",
-                          "link": "https://zykogit.github.io/minecraft-creator-hub/tools/command/item-powers/"
-                      }
-                  ]
-                { "label": "Pack Tools", "link": "/creators/new" },
-                { "label": "Tutorials", "link": "/creators/submit" }
-            ]
+          "label": "Pack Tools",
+          "children": [
+            {
+              "label": "Skin Pack Creator",
+              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/pack/skin-pack-creator/"
+            },
+            {
+              "label": "Texture Pack Creator",
+              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/pack/texture-pack-creator/"
+            }
+          ]
+        },
+        {
+          "label": "Tutorials",
+          "link": "https://zykogit.github.io/minecraft-creator-hub/tutorials/"
         }
-    ]
+      ]
+    }
+  ]
 }
