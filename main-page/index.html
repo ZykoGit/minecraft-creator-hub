@@ -236,38 +236,35 @@ fetch("../assets/documents/sitemap.json")
     .then(res => res.json())
     .then(data => buildMenu(data.menu));
 
-function buildMenu(menu) {
-    const sideMenu = document.getElementById("sideMenu");
-
+function buildMenu(menu, parentElement = document.getElementById("sideMenu"), level = 0) {
     menu.forEach(item => {
         const btn = document.createElement("div");
-        btn.className = "menu-item";
+        btn.className = level === 0 ? "menu-item" : "submenu-item";
         btn.textContent = item.label;
+
+        // Indent deeper levels
+        btn.style.marginLeft = (level * 20) + "px";
 
         if (item.link) {
             btn.onclick = () => location.href = item.link;
         }
 
+        parentElement.appendChild(btn);
+
+        // If item has children → build nested submenu
         if (item.children) {
             const submenu = document.createElement("div");
             submenu.className = "submenu";
+            submenu.style.display = "none";
 
-            item.children.forEach(child => {
-                const subBtn = document.createElement("div");
-                subBtn.className = "submenu-item";
-                subBtn.textContent = child.label;
-                subBtn.onclick = () => location.href = child.link;
-                submenu.appendChild(subBtn);
-            });
+            parentElement.appendChild(submenu);
 
             btn.onclick = () => {
                 submenu.style.display = submenu.style.display === "block" ? "none" : "block";
             };
 
-            sideMenu.appendChild(btn);
-            sideMenu.appendChild(submenu);
-        } else {
-            sideMenu.appendChild(btn);
+            // RECURSION — build children inside this submenu
+            buildMenu(item.children, submenu, level + 1);
         }
     });
 }
