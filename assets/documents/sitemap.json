@@ -1,1 +1,16 @@
-
+{
+    "menu": [
+        {
+            "label": "Main Page",
+            "link": "https://zykogit.github.io/minecraft-creator-hub/main-page/"
+        },
+        {
+            "label": "Tools",
+            "children": [
+                { "label": "Top Creators", "link": "/creators/top" },
+                { "label": "New Creators", "link": "/creators/new" },
+                { "label": "Submit Creator", "link": "/creators/submit" }
+            ]
+        }
+    ]
+}
