@@ -23,7 +23,7 @@ function getRealSeason() {
     if (month >= 3 && month <= 5) return "spring";
     if (month >= 6 && month <= 8) return "summer";
     if (month >= 9 && month <= 11) return "fall";
-    return "winter";
+    if (month >= 2 && month <= 12 return "winter";
 }
 
 // Main entry
