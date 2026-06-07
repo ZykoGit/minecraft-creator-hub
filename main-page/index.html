@@ -4,35 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minecraft Creator Hub</title>
+
+    <!-- FAVICON + APPLE TOUCH ICON -->
     <link rel="icon" type="image/png" href="./assets/IMG_4012.png">
     <link rel="apple-touch-icon" href="./assets/IMG_4012.png">
 
     <style>
-        /* LOAD HEADER FONT */
+        /* HEADER FONT */
         @font-face {
             font-family: "PixelDigivolve";
-            src: url("../assets/fonts/Pixel Digivolve.otf") format("opentype");
-            font-weight: normal;
-            font-style: normal;
+            src: url("./assets/fonts/Pixel Digivolve.otf") format("opentype");
         }
 
-        /* LOAD MINECRAFTIA FOR BODY TEXT */
+        /* BODY FONT */
         @font-face {
             font-family: "Minecraftia";
-            src: url("../assets/fonts/Minecraftia-Regular.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
+            src: url("./assets/fonts/Minecraftia-Regular.ttf") format("truetype");
         }
 
-        /* DEFAULT BODY FONT = MINECRAFTIA */
+        /* DEFAULT TEXT FONT */
         body, p, a, li, div, span {
             font-family: "Minecraftia", sans-serif;
-        }
-
-        /* GLOBAL BASELINE FIX FOR MINECRAFTIA */
-        body * {
-            position: relative;
-            top: 3px; /* adjust to 2 or 4 if needed */
         }
 
         body {
@@ -50,17 +42,16 @@
             margin-top: 40px;
         }
 
-        /* HEADER USES PIXEL DIGIVOLVE */
+        /* HEADER TEXT */
         .banner h1 {
             font-family: "PixelDigivolve", monospace;
             font-size: 48px;
             font-weight: normal;
             letter-spacing: 2px;
             text-shadow: 2px 2px #000;
-            top: 0; /* don't offset header font */
         }
 
-        /* OVAL BADGES */
+        /* BADGES */
         .badge {
             position: absolute;
             left: 50%;
@@ -75,6 +66,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.2;
         }
 
         .badge.top {
@@ -100,6 +92,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.3;
         }
 
         .disclaimer-content {
