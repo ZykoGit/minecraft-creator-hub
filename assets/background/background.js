@@ -2,50 +2,55 @@
 //  SPRING BACKGROUND GENERATOR
 // ===============================
 
-// Texture paths
 const dirtURL = "https://zykogit.github.io/minecraft-creator-hub/assets/dirt.png";
 const overlayURL = "https://zykogit.github.io/minecraft-creator-hub/assets/grass_side_overlay.png";
 
-// Canvas setup
 const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
-
-// Make sure pixel art stays sharp
+const ctx = canvas.getContext("2d", { willReadFrequently: true });
 ctx.imageSmoothingEnabled = false;
 
-// Load images
 Promise.all([
     loadImage(dirtURL),
     loadImage(overlayURL)
 ]).then(([dirt, overlay]) => {
 
-    // Base resolution (16×16)
     const size = 16;
-
     canvas.width = size;
     canvas.height = size;
 
-    // Draw dirt first
+    // Draw dirt base
     ctx.drawImage(dirt, 0, 0, size, size);
 
-    // Apply green tint ONLY to overlay
-    ctx.globalCompositeOperation = "source-over";
+    // Get overlay pixels
+    const overlayCanvas = document.createElement("canvas");
+    const overlayCtx = overlayCanvas.getContext("2d", { willReadFrequently: true });
+    overlayCanvas.width = size;
+    overlayCanvas.height = size;
+    overlayCtx.imageSmoothingEnabled = false;
 
-    // Draw overlay normally first
-    ctx.drawImage(overlay, 0, 0, size, size);
+    overlayCtx.drawImage(overlay, 0, 0, size, size);
+    const overlayData = overlayCtx.getImageData(0, 0, size, size);
 
-    // Tint pass
-    ctx.globalCompositeOperation = "source-atop";
+    // Tint color (Minecraft biome green)
+    const tint = { r: 95, g: 159, b: 53 };
 
-    // Minecraft biome‑style green (approx)
-    ctx.fillStyle = "rgba(95, 159, 53, 0.85)";
-    ctx.fillRect(0, 0, size, size);
+    // Apply tint ONLY to overlay pixels
+    for (let i = 0; i < overlayData.data.length; i += 4) {
+        const alpha = overlayData.data[i + 3];
 
-    // Reset composite mode
-    ctx.globalCompositeOperation = "source-over";
+        if (alpha > 0) {
+            overlayData.data[i] = tint.r;
+            overlayData.data[i + 1] = tint.g;
+            overlayData.data[i + 2] = tint.b;
+        }
+    }
 
-    // Now scale up the canvas for background use
-    const scale = 32; // 16px → 512px
+    // Draw tinted overlay on top of dirt
+    overlayCtx.putImageData(overlayData, 0, 0);
+    ctx.drawImage(overlayCanvas, 0, 0);
+
+    // Scale up for background
+    const scale = 32;
     const bigCanvas = document.createElement("canvas");
     const bigCtx = bigCanvas.getContext("2d");
     bigCtx.imageSmoothingEnabled = false;
@@ -55,15 +60,13 @@ Promise.all([
 
     bigCtx.drawImage(canvas, 0, 0, bigCanvas.width, bigCanvas.height);
 
-    // Convert to PNG data URL
     const finalTexture = bigCanvas.toDataURL("image/png");
 
-    // Apply as page background
     document.body.style.backgroundImage = `url(${finalTexture})`;
     document.body.style.backgroundRepeat = "repeat";
 });
 
-// Helper to load images
+// Image loader helper
 function loadImage(src) {
     return new Promise(resolve => {
         const img = new Image();
