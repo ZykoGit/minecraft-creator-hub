@@ -21,7 +21,7 @@ Promise.all([
     // Draw dirt base
     ctx.drawImage(dirt, 0, 0, size, size);
 
-    // Get overlay pixels
+    // Prepare overlay canvas
     const overlayCanvas = document.createElement("canvas");
     const overlayCtx = overlayCanvas.getContext("2d", { willReadFrequently: true });
     overlayCanvas.width = size;
@@ -49,21 +49,23 @@ Promise.all([
     overlayCtx.putImageData(overlayData, 0, 0);
     ctx.drawImage(overlayCanvas, 0, 0);
 
-    // Scale up for background
-    const scale = 32;
+    // Scale up to EXACTLY 160px
+    const tileSize = 160;
     const bigCanvas = document.createElement("canvas");
     const bigCtx = bigCanvas.getContext("2d");
     bigCtx.imageSmoothingEnabled = false;
 
-    bigCanvas.width = size * scale;
-    bigCanvas.height = size * scale;
+    bigCanvas.width = tileSize;
+    bigCanvas.height = tileSize;
 
-    bigCtx.drawImage(canvas, 0, 0, bigCanvas.width, bigCanvas.height);
+    bigCtx.drawImage(canvas, 0, 0, tileSize, tileSize);
 
     const finalTexture = bigCanvas.toDataURL("image/png");
 
+    // Apply as page background
     document.body.style.backgroundImage = `url(${finalTexture})`;
     document.body.style.backgroundRepeat = "repeat";
+    document.body.style.imageRendering = "pixelated"; // extra crispness
 });
 
 // Image loader helper
