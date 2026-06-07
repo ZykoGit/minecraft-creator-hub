@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: "PixelDigivolve";
-    src: url("../assets/fonts/Pixel Digivolve.otf") format("opentype");
+    src: url("../../assets/fonts/Pixel Digivolve.otf") format("opentype");
 }
 
 @font-face {
     font-family: "Minecraftia";
-    src: url("../assets/fonts/Minecraftia-Regular.ttf") format("truetype");
+    src: url("../../assets/fonts/Minecraftia-Regular.ttf") format("truetype");
 }
 
 body, p, a, li, div, span, select, button, label {
