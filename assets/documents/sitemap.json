@@ -12,11 +12,11 @@
           "children": [
             {
               "label": "Item Powers",
-              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/command/item-powers/"
+              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/item-powers/"
             },
             {
               "label": "Armor Powers",
-              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/command/armor-powers/"
+              "link": "https://zykogit.github.io/minecraft-creator-hub/tools/armor-powers/"
             }
           ]
         },
