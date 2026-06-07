@@ -7,9 +7,9 @@
         {
             "label": "Tools",
             "children": [
-                { "label": "Top Creators", "link": "/creators/top" },
-                { "label": "New Creators", "link": "/creators/new" },
-                { "label": "Submit Creator", "link": "/creators/submit" }
+                { "label": "Command Tools", "link": "/creators/top" },
+                { "label": "Pack Tools", "link": "/creators/new" },
+                { "label": "Tutorials", "link": "/creators/submit" }
             ]
         }
     ]
