@@ -16,19 +16,60 @@ const textures = {
     winter: "https://zykogit.github.io/minecraft-creator-hub/assets/grass_block_side_snowed.png"
 };
 
-// Determine real season if auto
-function getRealSeason() {
-    const month = new Date().getMonth() + 1;
+// ===============================
+//  PUBLIC API SEASON DETECTION
+// ===============================
 
-    if (month >= 3 && month <= 5) return "spring";
-    if (month >= 6 && month <= 8) return "summer";
-    if (month >= 9 && month <= 11) return "fall";
-    if (month >= 2 || month == 12 return "winter";
+async function getRealSeason() {
+    return new Promise((resolve) => {
+        navigator.geolocation.getCurrentPosition(async pos => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+
+            const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                const temp = data.current.temperature_2m;
+                const month = new Date().getMonth() + 1;
+
+                let season;
+
+                // Temperature-based season guess
+                if (temp <= 5) season = "winter";
+                else if (temp <= 15) season = "fall";
+                else if (temp <= 25) season = "spring";
+                else season = "summer";
+
+                // Month-based override (meteorological seasons)
+                if (month >= 12 || month <= 2) season = "winter";
+                if (month >= 3 && month <= 5) season = "spring";
+                if (month >= 6 && month <= 8) season = "summer";
+                if (month >= 9 && month <= 11) season = "fall";
+
+                resolve(season);
+
+            } catch (err) {
+                console.error("API error:", err);
+                resolve("summer"); // fallback
+            }
+        }, err => {
+            console.error("Location error:", err);
+            resolve("summer"); // fallback
+        });
+    });
 }
 
-// Main entry
-function startBackground() {
-    const season = seasonMode === "auto" ? getRealSeason() : seasonMode;
+// ===============================
+//  MAIN ENTRY
+// ===============================
+
+async function startBackground() {
+    const season = seasonMode === "auto"
+        ? await getRealSeason()
+        : seasonMode;
 
     if (season === "spring") {
         generateSpring();
@@ -37,44 +78,37 @@ function startBackground() {
     }
 }
 
-// SPRING (special tinting logic)
+// ===============================
+//  SPRING (special tinting logic)
+// ===============================
+
 function generateSpring() {
     const dirtURL = textures.spring.dirt;
     const overlayURL = textures.spring.overlay;
 
     Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) => {
 
-        // Base 16×16 canvas
         const base = document.createElement("canvas");
         base.width = 16;
         base.height = 16;
         const bctx = base.getContext("2d", { willReadFrequently: true });
 
-        // Pixel art mode
         bctx.imageSmoothingEnabled = false;
-        bctx.webkitImageSmoothingEnabled = false;
-        bctx.mozImageSmoothingEnabled = false;
 
         bctx.drawImage(dirt, 0, 0, 16, 16);
 
-        // Overlay
         const oCanvas = document.createElement("canvas");
         oCanvas.width = 16;
         oCanvas.height = 16;
         const octx = oCanvas.getContext("2d", { willReadFrequently: true });
 
         octx.imageSmoothingEnabled = false;
-        octx.webkitImageSmoothingEnabled = false;
-        octx.mozImageSmoothingEnabled = false;
-
         octx.drawImage(overlay, 0, 0, 16, 16);
 
         const oData = octx.getImageData(0, 0, 16, 16);
 
-        // Bright spring tint
         const tint = { r: 140, g: 220, b: 100 };
 
-        // Apply tint
         for (let i = 0; i < oData.data.length; i += 4) {
             const alpha = oData.data[i + 3];
             if (alpha > 0) {
@@ -92,7 +126,10 @@ function generateSpring() {
     });
 }
 
-// SUMMER / FALL / WINTER (simple scaling)
+// ===============================
+//  SUMMER / FALL / WINTER
+// ===============================
+
 function generateSimple(url) {
     loadImage(url).then(img => {
         const base = document.createElement("canvas");
@@ -101,8 +138,6 @@ function generateSimple(url) {
 
         const ctx = base.getContext("2d");
         ctx.imageSmoothingEnabled = false;
-        ctx.webkitImageSmoothingEnabled = false;
-        ctx.mozImageSmoothingEnabled = false;
 
         ctx.drawImage(img, 0, 0, 16, 16);
 
@@ -110,7 +145,10 @@ function generateSimple(url) {
     });
 }
 
-// Scale to 80×80 and apply
+// ===============================
+//  SCALE TO 80×80 AND APPLY
+// ===============================
+
 function applyAsBackground(baseCanvas) {
     const final = document.createElement("canvas");
     final.width = 80;
@@ -118,8 +156,6 @@ function applyAsBackground(baseCanvas) {
 
     const fctx = final.getContext("2d");
     fctx.imageSmoothingEnabled = false;
-    fctx.webkitImageSmoothingEnabled = false;
-    fctx.mozImageSmoothingEnabled = false;
 
     fctx.drawImage(baseCanvas, 0, 0, 80, 80);
 
@@ -131,7 +167,10 @@ function applyAsBackground(baseCanvas) {
     document.body.style.imageRendering = "pixelated";
 }
 
-// Loader
+// ===============================
+//  IMAGE LOADER
+// ===============================
+
 function loadImage(src) {
     return new Promise(res => {
         const img = new Image();
@@ -141,5 +180,8 @@ function loadImage(src) {
     });
 }
 
-// Start
+// ===============================
+//  START
+// ===============================
+
 startBackground();
