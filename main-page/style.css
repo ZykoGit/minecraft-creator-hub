@@ -1,0 +1,66 @@
+/* HEADER FONT */
+@font-face {
+    font-family: "PixelDigivolve";
+    src: url("../assets/fonts/Pixel Digivolve.otf") format("opentype");
+}
+
+/* BODY FONT */
+@font-face {
+    font-family: "Minecraftia";
+    src: url("../assets/fonts/Minecraftia-Regular.ttf") format("truetype");
+}
+
+body, p, a, li, div, span {
+    font-family: "Minecraftia", sans-serif;
+}
+
+.minecraftia-text-fix {
+    display: inline-block;
+    transform: translateY(6px);
+}
+
+body {
+    margin: 0;
+    background: #f0f0f0;
+    text-align: center;
+}
+
+/* CHANGELOG */
+.changelog-box {
+    background: #ffffff;
+    border: 4px solid #000;
+    box-shadow: 0 6px 0 #444;
+    width: 80%;
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: left;
+}
+
+.changelog-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px #000;
+}
+
+.changelog-entry {
+    background: #e5e5e5;
+    border: 3px solid #000;
+    padding: 15px;
+    margin-top: 20px;
+    box-shadow: 0 4px 0 #777;
+}
+
+.changelog-entry h3 {
+    margin-top: 0;
+    font-size: 22px;
+    text-shadow: 1px 1px #000;
+}
+
+.changelog-entry ul {
+    margin: 10px 0 0 20px;
+}
+
+.changelog-entry li {
+    margin: 5px 0;
+}
