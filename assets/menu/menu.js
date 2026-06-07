@@ -1,5 +1,5 @@
 /* LOAD MENU FROM JSON */
-fetch("../assets/documents/sitemap.json")
+fetch("https://zykogit.github.io/minecraft-creator-hub/assets/documents/sitemap.json")
     .then(res => res.json())
     .then(data => buildMenu(data.menu));
 
