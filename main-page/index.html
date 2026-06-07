@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Creator Hub | Main Page</title>
-    <link rel="icon" type="image/png" href="../assets/IMG_4012.png">
-    <link rel="apple-touch-icon" href="../assets/IMG_4012.png">
-
+    <title>Minecraft Creator Hub</title>
+    <link rel="icon" type="image/png" href="./assets/IMG_4012.png">
+    <link rel="apple-touch-icon" href="./assets/IMG_4012.png">
 
     <style>
         /* LOAD HEADER FONT */
@@ -25,16 +24,15 @@
             font-style: normal;
         }
 
-        /* GLOBAL OFFSET FOR MINECRAFTIA */
-        .minecraftia-fix {
-            position: relative;
-            top: 3px; 
-        }
-        
         /* DEFAULT BODY FONT = MINECRAFTIA */
         body, p, a, li, div, span {
             font-family: "Minecraftia", sans-serif;
+        }
+
+        /* GLOBAL BASELINE FIX FOR MINECRAFTIA */
+        body * {
             position: relative;
+            top: 3px; /* adjust to 2 or 4 if needed */
         }
 
         body {
@@ -59,6 +57,7 @@
             font-weight: normal;
             letter-spacing: 2px;
             text-shadow: 2px 2px #000;
+            top: 0; /* don't offset header font */
         }
 
         /* OVAL BADGES */
@@ -72,6 +71,10 @@
             border-radius: 20px;
             font-weight: bold;
             border: 2px solid #1e40af;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .badge.top {
@@ -93,6 +96,10 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .disclaimer-content {
