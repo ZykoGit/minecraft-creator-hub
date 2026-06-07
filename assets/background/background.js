@@ -5,80 +5,85 @@
 const dirtURL = "https://zykogit.github.io/minecraft-creator-hub/assets/dirt.png";
 const overlayURL = "https://zykogit.github.io/minecraft-creator-hub/assets/grass_side_overlay.png";
 
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d", { willReadFrequently: true });
+Promise.all([loadImage(dirtURL), loadImage(overlayURL)]).then(([dirt, overlay]) => {
 
-// Force pixel‑art rendering
-ctx.imageSmoothingEnabled = false;
+    // Base 16×16 canvas
+    const base = document.createElement("canvas");
+    base.width = 16;
+    base.height = 16;
+    const bctx = base.getContext("2d", { willReadFrequently: true });
 
-Promise.all([
-    loadImage(dirtURL),
-    loadImage(overlayURL)
-]).then(([dirt, overlay]) => {
+    // Force pixel art mode
+    bctx.imageSmoothingEnabled = false;
+    bctx.webkitImageSmoothingEnabled = false;
+    bctx.mozImageSmoothingEnabled = false;
 
-    const size = 16;
-    canvas.width = size;
-    canvas.height = size;
+    // Draw dirt
+    bctx.drawImage(dirt, 0, 0, 16, 16);
 
-    // Draw dirt base
-    ctx.drawImage(dirt, 0, 0, size, size);
+    // Prepare overlay
+    const oCanvas = document.createElement("canvas");
+    oCanvas.width = 16;
+    oCanvas.height = 16;
+    const octx = oCanvas.getContext("2d", { willReadFrequently: true });
 
-    // Prepare overlay canvas
-    const overlayCanvas = document.createElement("canvas");
-    const overlayCtx = overlayCanvas.getContext("2d", { willReadFrequently: true });
-    overlayCanvas.width = size;
-    overlayCanvas.height = size;
-    overlayCtx.imageSmoothingEnabled = false;
+    octx.imageSmoothingEnabled = false;
+    octx.webkitImageSmoothingEnabled = false;
+    octx.mozImageSmoothingEnabled = false;
 
-    overlayCtx.drawImage(overlay, 0, 0, size, size);
-    const overlayData = overlayCtx.getImageData(0, 0, size, size);
+    octx.drawImage(overlay, 0, 0, 16, 16);
 
-    // Tint color (Minecraft biome green)
+    const oData = octx.getImageData(0, 0, 16, 16);
+
+    // Minecraft biome tint (spring)
     const tint = { r: 95, g: 159, b: 53 };
 
     // Apply tint ONLY to overlay pixels
-    for (let i = 0; i < overlayData.data.length; i += 4) {
-        const alpha = overlayData.data[i + 3];
-
+    for (let i = 0; i < oData.data.length; i += 4) {
+        const alpha = oData.data[i + 3];
         if (alpha > 0) {
-            overlayData.data[i] = tint.r;
-            overlayData.data[i + 1] = tint.g;
-            overlayData.data[i + 2] = tint.b;
+            const gray = oData.data[i]; // grayscale mask
+            oData.data[i]     = (tint.r * gray) / 255;
+            oData.data[i + 1] = (tint.g * gray) / 255;
+            oData.data[i + 2] = (tint.b * gray) / 255;
         }
     }
 
-    // Draw tinted overlay on top of dirt
-    overlayCtx.putImageData(overlayData, 0, 0);
-    ctx.drawImage(overlayCanvas, 0, 0);
+    octx.putImageData(oData, 0, 0);
 
-    // Scale to EXACT 80px tiles
-    const tileSize = 80;
-    const bigCanvas = document.createElement("canvas");
-    const bigCtx = bigCanvas.getContext("2d");
-    bigCtx.imageSmoothingEnabled = false;
+    // Draw tinted overlay onto dirt
+    bctx.drawImage(oCanvas, 0, 0);
 
-    bigCanvas.width = tileSize;
-    bigCanvas.height = tileSize;
+    // Now scale to EXACT 80×80 inside canvas (no CSS scaling)
+    const final = document.createElement("canvas");
+    final.width = 80;
+    final.height = 80;
+    const fctx = final.getContext("2d");
 
-    bigCtx.drawImage(canvas, 0, 0, tileSize, tileSize);
+    fctx.imageSmoothingEnabled = false;
+    fctx.webkitImageSmoothingEnabled = false;
+    fctx.mozImageSmoothingEnabled = false;
 
-    const finalTexture = bigCanvas.toDataURL("image/png");
+    fctx.drawImage(base, 0, 0, 80, 80);
 
-    // Apply as page background
-    document.body.style.backgroundImage = `url(${finalTexture})`;
+    // Convert to PNG
+    const url = final.toDataURL("image/png");
+
+    // Apply as background
+    document.body.style.backgroundImage = `url(${url})`;
     document.body.style.backgroundRepeat = "repeat";
 
-    // EXTRA anti‑blur protection
+    // HARD FORCE crisp rendering
     document.body.style.imageRendering = "pixelated";
     document.body.style.backgroundSize = "80px 80px";
 });
 
-// Image loader helper
+// Helper
 function loadImage(src) {
-    return new Promise(resolve => {
+    return new Promise(res => {
         const img = new Image();
         img.crossOrigin = "anonymous";
-        img.onload = () => resolve(img);
+        img.onload = () => res(img);
         img.src = src;
     });
 }
