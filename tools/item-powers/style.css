@@ -101,6 +101,12 @@ body {
     color: #000;
 }
 
+.result-box {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
 label {
     font-size: 16px;
     margin-top: 15px;
