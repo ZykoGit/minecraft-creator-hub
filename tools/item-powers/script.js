@@ -1,12 +1,9 @@
-// Fix for iOS touch delay (same as main page)
 document.addEventListener("touchstart", function(){}, true);
 
-// YEAR BADGES
 const year = new Date().getFullYear();
 document.getElementById("year-top").textContent = year;
 document.getElementById("year-bottom").textContent = year;
 
-// FORM LOGIC
 const itemSelect = document.getElementById("item");
 const powerSelect = document.getElementById("power");
 const generateBtn = document.getElementById("generate");
@@ -21,26 +18,37 @@ generateBtn.addEventListener("click", () => {
         alert("Please choose both an item and a power");
         return;
     }
+    
+    const stepsHTML = `
+        <ol style="padding-left: 20px; text-align: left; overflow-wrap: break-word;">
+            <li>
+                In the chat do:<br>
+                <code>/gamerule commandblockoutput false</code><br>
+                <code>/tickingarea add circle ~ ~ ~ 4 dummyText</code>
+            </li>
 
-    // Build the steps
-    const step1 = `1) In the chat do:\n` +
-                  `   /gamerule commandblockoutput false\n` +
-                  `   /tickingarea add circle ~ ~ ~ 4 dummyText`;
+            <li>
+                Then do:<br>
+                <code>/give @s ${item} 1 50</code><br>
+                <code>/give @s command_block</code>
+            </li>
 
-    const step2 = `2) Then do:\n` +
-                  `   /give @s ${item} 1 50\n` +
-                  `   /give @s command_block`;
+            <li>
+                Place a command block and set it to:<br>
+                • Always Active<br>
+                • Unconditional<br>
+                • Repeating
+            </li>
 
-    const step3 = `3) Place a command block and set it to:\n` +
-                  `   • Always Active\n` +
-                  `   • Unconditional\n` +
-                  `   • Repeating`;
+            <li>
+                Set the command to:<br>
+                <code>
+                execute as @a[hasitem={item=${item},location=slot.weapon.mainhand,data=50}] run effect @s ${power} 1 10 true
+                </code>
+            </li>
+        </ol>
+    `;
 
-    const step4 = `4) Set the command to:\n` +
-                  `   execute as @a[hasitem={item=${item},location=slot.weapon.mainhand,data=50}] run effect @s ${power} 1 10 true`;
-
-    // Combine all steps
-    resultText.textContent = `${step1}\n\n${step2}\n\n${step3}\n\n${step4}`;
-
+    resultText.innerHTML = stepsHTML;
     resultBox.style.display = "block";
 });
