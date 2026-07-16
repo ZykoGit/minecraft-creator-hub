@@ -43,7 +43,7 @@ generateBtn.addEventListener("click", () => {
             <li>
                 Set the command to:<br>
                 <code>
-                execute as @a[hasitem={item=${item},location=slot.weapon.mainhand,data=50}] run effect @s ${power} 1 10 true
+                execute as @a[hasitem={item=${item},location=slot.weapon.mainhand,data=50}] as @s run effect @s ${power} 1 10 true
                 </code>
             </li>
         </ol>
